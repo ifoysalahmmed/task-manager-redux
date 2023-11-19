@@ -10,6 +10,10 @@ const Tasks = () => {
 
   const { tasks } = useSelector((state) => state.tasksSlice);
 
+  const pendingTasks = tasks.filter((item) => item.status === "pending");
+  const runningTasks = tasks.filter((item) => item.status === "running");
+  const completedTasks = tasks.filter((item) => item.status === "done");
+
   return (
     <div className="h-screen grid grid-cols-12">
       <div className="col-span-9 px-10 pt-10">
@@ -45,11 +49,11 @@ const Tasks = () => {
             <div className="flex sticky top-0 justify-between bg-[#D3DDF9] p-5 mb-3 rounded-md">
               <h1>Up Next</h1>
               <p className="bg-primary text-white h-6 w-6 grid place-content-center rounded-md">
-                0
+                {pendingTasks.length}
               </p>
             </div>
             <div className="space-y-3">
-              {tasks.map((item) => (
+              {pendingTasks.map((item) => (
                 <TaskCard key={item?.id} task={item} />
               ))}
             </div>
@@ -58,11 +62,11 @@ const Tasks = () => {
             <div className="flex sticky top-0 justify-between bg-[#D3DDF9] p-5 mb-3 rounded-md">
               <h1>In Progress</h1>
               <p className="bg-primary text-white h-6 w-6 grid place-content-center rounded-md">
-                0
+                {runningTasks.length}
               </p>
             </div>
             <div className="space-y-3">
-              {tasks.map((item) => (
+              {runningTasks.map((item) => (
                 <TaskCard key={item?.id} task={item} />
               ))}
             </div>
@@ -71,11 +75,11 @@ const Tasks = () => {
             <div className="flex sticky top-0 justify-between bg-[#D3DDF9] p-5 mb-3 rounded-md">
               <h1>Complete</h1>
               <p className="bg-primary text-white h-6 w-6 grid place-content-center rounded-md">
-                0
+                {completedTasks.length}
               </p>
             </div>
             <div className="space-y-3">
-              {tasks.map((item) => (
+              {completedTasks.map((item) => (
                 <TaskCard key={item?.id} task={item} />
               ))}
             </div>
