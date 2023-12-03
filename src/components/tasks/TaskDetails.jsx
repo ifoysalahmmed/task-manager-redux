@@ -12,11 +12,11 @@ const TaskDetails = ({ isOpen, setIsOpen, id }) => {
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={task?.title}>
-      <div className="space-y-2">
+      <div className="space-y-2 mt-3">
         <p>{task?.description}</p>
-        <p>Assigned To - {task.assignedTo}</p>
-        <p>Date - {task.date}</p>
-        <p className="capitalize">Priority - {task.priority}</p>
+        <p>Assigned To - {task?.assignedTo}</p>
+        <p>Date - {task?.date}</p>
+        <p className="capitalize">Priority - {task?.priority}</p>
       </div>
       <div className="flex justify-end">
         <button onClick={() => OnClose()} className="btn btn-danger">
