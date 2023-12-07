@@ -6,6 +6,7 @@ import Chat from "../pages/Chat";
 import Settings from "../pages/Settings";
 import Profile from "../pages/Profile";
 import PrivateRoute from "./PrivateRoute";
+import SignUp from "../pages/Signup";
 
 const routes = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const routes = createBrowserRouter([
         element: <Profile />,
       },
     ],
+  },
+  {
+    path: "/sign-up",
+    element: <SignUp />,
   },
 ]);
 
