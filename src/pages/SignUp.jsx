@@ -4,11 +4,10 @@ import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import loginImg from "../assets/login.svg";
 import { AuthContext } from "../context/AuthProvider";
+import SocialLogin from "./shared/SocialLogin";
 
 const SignUp = () => {
-  const { user, createUser, updateUserProfile } = useContext(AuthContext);
-
-  console.log(user);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
 
   const { register, handleSubmit, control } = useForm();
 
@@ -116,6 +115,8 @@ const SignUp = () => {
                 </span>
               </p>
             </div>
+
+            <SocialLogin />
           </form>
         </div>
       </div>
