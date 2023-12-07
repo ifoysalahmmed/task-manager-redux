@@ -4,11 +4,16 @@ import Tasks from "../pages/Tasks";
 import Chat from "../pages/Chat";
 import Settings from "../pages/Settings";
 import Profile from "../pages/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <PrivateRoute>
+        <App />
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,

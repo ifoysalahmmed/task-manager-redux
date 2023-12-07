@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/logo.png";
 
 const Sidebar = () => {
   return (
