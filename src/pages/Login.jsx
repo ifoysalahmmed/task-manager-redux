@@ -15,8 +15,8 @@ const Login = () => {
   const handleLogin = (data) => {
     const { email, password } = data || {};
 
-    signIn(email, password).then((result) => {
-      console.log(result.user);
+    signIn(email, password).then(() => {
+      //
     });
   };
 
