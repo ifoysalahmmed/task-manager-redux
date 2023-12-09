@@ -1,12 +1,29 @@
 import { ArrowRightIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useDispatch } from "react-redux";
-import {
-  removeTask,
-  updateStatus,
-} from "../../redux/features/tasks/tasksSlice";
+import { useUpdateTaskMutation } from "../../redux/features/api/baseApi";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const TaskCard = ({ task }) => {
-  const dispatch = useDispatch();
+  const [updateTask, { data, error }] = useUpdateTaskMutation();
+
+  const handleUpdateStatus = (id, updatedStatus) => {
+    const data = {
+      status: updatedStatus,
+    };
+
+    const options = {
+      id,
+      data,
+    };
+
+    updateTask(options);
+  };
+
+  useEffect(() => {
+    if (data && !error) {
+      toast.success(data.message);
+    }
+  }, [data, error]);
 
   let updatedStatus;
 
@@ -34,13 +51,14 @@ const TaskCard = ({ task }) => {
       <div className="flex justify-between mt-3">
         <p>{task?.date}</p>
         <div className="flex gap-3">
-          <button onClick={() => dispatch(removeTask(task.id))} title="Delete">
+          {/* <button onClick={() => dispatch(removeTask(task.id))} title="Delete">
+            <TrashIcon className="h-5 w-5 text-red-500" />
+          </button> */}
+          <button title="Delete">
             <TrashIcon className="h-5 w-5 text-red-500" />
           </button>
           <button
-            onClick={() =>
-              dispatch(updateStatus({ id: task.id, status: updatedStatus }))
-            }
+            onClick={() => handleUpdateStatus(task._id, updatedStatus)}
             title="Update Status"
           >
             <ArrowRightIcon className="h-5 w-5 text-primary" />
