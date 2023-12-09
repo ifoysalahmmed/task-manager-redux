@@ -1,16 +1,30 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import loginImg from "../assets/login.svg";
 import SocialLogin from "./shared/SocialLogin";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../redux/features/user/userSlice";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
 
   const navigate = useNavigate();
 
+  const { email, isError, error } = useSelector((state) => state.userSlice);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (email) {
+      toast.success("Logged in successfully");
+      navigate("/");
+    }
+    if (error) {
+      toast.error(error);
+    }
+  }, [email, isError, error, navigate]);
 
   const handleLogin = ({ email, password }) => {
     dispatch(signIn({ email, password }));
