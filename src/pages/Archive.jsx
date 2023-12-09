@@ -9,7 +9,7 @@ const Archive = () => {
   return (
     <div className="p-10">
       <div>
-        <h1 className="text-xl font-semibold mb-10">Archive Board</h1>
+        <h1 className="text-3xl font-semibold mb-10">Archive Board</h1>
       </div>
       <div className="grid grid-cols-4 gap-5">
         {archiveTasks?.map((item) => (

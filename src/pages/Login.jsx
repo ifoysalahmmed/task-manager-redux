@@ -1,23 +1,15 @@
-import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import loginImg from "../assets/login.svg";
-import { AuthContext } from "../context/AuthProvider";
 import SocialLogin from "./shared/SocialLogin";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
-
   const { register, handleSubmit } = useForm();
 
   const navigate = useNavigate();
 
-  const handleLogin = (data) => {
-    const { email, password } = data || {};
-
-    signIn(email, password).then(() => {
-      //
-    });
+  const handleLogin = ({ email, password }) => {
+    console.log(email, password);
   };
 
   return (

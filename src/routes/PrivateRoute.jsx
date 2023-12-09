@@ -4,16 +4,15 @@ import Loading from "../pages/shared/Loading";
 const PrivateRoute = ({ children }) => {
   const { pathname } = useLocation();
 
-  const isLoading = false;
-  const email = "test@gmail.com";
 
-  if (isLoading) {
-    return <Loading />;
-  }
 
-  if (!isLoading && !email) {
-    return <Navigate to="/login" state={{ path: pathname }} />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
+
+  // if (!isLoading && !email) {
+  //   return <Navigate to="/login" state={{ path: pathname }} />;
+  // }
 
   return children;
 };

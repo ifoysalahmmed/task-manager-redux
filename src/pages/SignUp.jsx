@@ -1,19 +1,20 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import loginImg from "../assets/login.svg";
-import { AuthContext } from "../context/AuthProvider";
 import SocialLogin from "./shared/SocialLogin";
+import { useDispatch } from "react-redux";
+import { createUser } from "../redux/features/user/userSlice";
 
 const SignUp = () => {
-  const { createUser, updateUserProfile } = useContext(AuthContext);
-
   const { register, handleSubmit, control } = useForm();
 
   const [disabled, setDisabled] = useState(true);
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const password = useWatch({ control, name: "password" });
   const confirmPassword = useWatch({ control, name: "confirmPassword" });
@@ -32,14 +33,8 @@ const SignUp = () => {
     }
   }, [confirmPassword, password]);
 
-  const handleSignUp = (data) => {
-    const { name, email, password } = data || {};
-
-    createUser(email, password).then(() => {
-      updateUserProfile(name).then(() => {
-        //
-      });
-    });
+  const handleSignUp = ({ name, email, password }) => {
+    dispatch(createUser({ name, email, password }));
   };
 
   return (
