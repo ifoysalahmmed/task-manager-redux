@@ -4,11 +4,12 @@ import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import loginImg from "../assets/login.svg";
 import SocialLogin from "./shared/SocialLogin";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../redux/features/user/userSlice";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
-  const { register, handleSubmit, control } = useForm();
+  const { register, handleSubmit, reset, control } = useForm();
 
   const [disabled, setDisabled] = useState(true);
 
@@ -16,6 +17,8 @@ const SignUp = () => {
 
   const password = useWatch({ control, name: "password" });
   const confirmPassword = useWatch({ control, name: "confirmPassword" });
+
+  const { email, isError, error } = useSelector((state) => state.userSlice);
 
   const dispatch = useDispatch();
 
@@ -32,6 +35,17 @@ const SignUp = () => {
       setDisabled(true);
     }
   }, [confirmPassword, password]);
+
+  useEffect(() => {
+    if (email) {
+      toast.success("Profile created successfully");
+      navigate("/");
+    }
+    if (error) {
+      reset();
+      toast.error(error);
+    }
+  }, [email, isError, error, navigate, reset]);
 
   const handleSignUp = ({ name, email, password }) => {
     dispatch(createUser({ name, email, password }));
