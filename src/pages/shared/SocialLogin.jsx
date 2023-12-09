@@ -1,6 +1,11 @@
+import { useDispatch } from "react-redux";
+import { googleLogin } from "../../redux/features/user/userSlice";
+
 const SocialLogin = () => {
+  const dispatch = useDispatch();
+
   const handleGoogleLogin = () => {
-    //
+    dispatch(googleLogin());
   };
 
   return (

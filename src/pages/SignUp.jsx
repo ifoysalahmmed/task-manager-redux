@@ -14,10 +14,10 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-
   const password = useWatch({ control, name: "password" });
   const confirmPassword = useWatch({ control, name: "confirmPassword" });
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (
