@@ -2,14 +2,18 @@ import { useForm } from "react-hook-form";
 import loginImg from "../assets/login.svg";
 import SocialLogin from "./shared/SocialLogin";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signIn } from "../redux/features/user/userSlice";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   const handleLogin = ({ email, password }) => {
-    console.log(email, password);
+    dispatch(signIn({ email, password }));
   };
 
   return (

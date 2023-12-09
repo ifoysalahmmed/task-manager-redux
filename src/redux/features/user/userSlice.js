@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import auth from "../../../firebase/firebase.config";
 
 const initialState = {
@@ -18,6 +22,18 @@ export const createUser = createAsyncThunk(
     await updateProfile(auth.currentUser, {
       displayName: name,
     });
+
+    return {
+      email: data.user.email,
+      name: data.user.displayName,
+    };
+  }
+);
+
+export const signIn = createAsyncThunk(
+  "userSlice/signIn",
+  async ({ email, password }) => {
+    const data = await signInWithEmailAndPassword(auth, email, password);
 
     return {
       email: data.user.email,
@@ -59,6 +75,29 @@ const userSlice = createSlice({
         state.error = "";
       })
       .addCase(createUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.email = "";
+        state.name = "";
+        state.error = action.error.message;
+      });
+
+    builder
+      .addCase(signIn.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.email = "";
+        state.name = "";
+        state.error = "";
+      })
+      .addCase(signIn.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.email = payload.email;
+        state.name = payload.name;
+        state.error = "";
+      })
+      .addCase(signIn.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.email = "";
