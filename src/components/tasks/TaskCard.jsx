@@ -1,6 +1,6 @@
-import { ArrowRightIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useUpdateTaskMutation } from "../../redux/features/api/baseApi";
 import { useEffect } from "react";
+import { ArrowRightIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { useUpdateTaskMutation } from "../../redux/features/tasks/taskApi";
 import toast from "react-hot-toast";
 
 const TaskCard = ({ task }) => {

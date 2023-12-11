@@ -1,12 +1,13 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "../ui/Modal";
-import { useDispatch } from "react-redux";
-import { addTask } from "../../redux/features/tasks/tasksSlice";
+import { useAddTaskMutation } from "../../redux/features/tasks/taskApi";
+import toast from "react-hot-toast";
 
 const AddTaskModal = ({ isOpen, setIsOpen }) => {
   const { register, handleSubmit, reset } = useForm();
 
-  const dispatch = useDispatch();
+  const [addTask, { data, error }] = useAddTaskMutation();
 
   const onCancel = () => {
     reset();
@@ -14,9 +15,15 @@ const AddTaskModal = ({ isOpen, setIsOpen }) => {
   };
 
   const onSubmit = (data) => {
-    dispatch(addTask(data));
+    addTask({ ...data, status: "pending" });
     onCancel();
   };
+
+  useEffect(() => {
+    if (data?.insertedId && !error) {
+      toast.success("Task added successfully");
+    }
+  }, [data, error]);
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} title="Programming Hero">
